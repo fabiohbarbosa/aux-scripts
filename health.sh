@@ -6,6 +6,11 @@ http_status=`curl -I $1 2>/dev/null | head -n 1 | cut -d$' ' -f2`
 
 echo "HTTP STATUS: ${http_status}"
 
+if ! [ "${http_status}" -eq "${http_status}" ] 2>/dev/null; then
+  echo ${http_status}
+  exit 1
+fi
+
 if [ ${http_status} -eq ${expected_http_status} ]; then
   exit 0
 else
